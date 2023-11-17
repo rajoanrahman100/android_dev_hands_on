@@ -10,7 +10,7 @@ import com.example.myapplication.recyclerView_project.dataClass.People
 
 class MainActivityRecyclerView : AppCompatActivity() {
     private lateinit var myRecyclerView: RecyclerView
-    var listOfItem = listOf<People>(
+    private var listOfItem = listOf<People>(
         People(name = "Bristy", role = "Mother"),
         People(name = "Rifat", role = "Father"),
         People(name = "Ihan", role = "Son"),
@@ -36,7 +36,7 @@ class MainActivityRecyclerView : AppCompatActivity() {
         }
     }
 
-    fun listItemClicked(people: People) {
+    private fun listItemClicked(people: People) {
         Toast.makeText(this@MainActivityRecyclerView, "Click on ${people.name}", Toast.LENGTH_SHORT)
             .show()
     }

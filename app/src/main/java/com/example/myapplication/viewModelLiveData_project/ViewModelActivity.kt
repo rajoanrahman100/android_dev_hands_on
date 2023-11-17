@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.R
 
-class MainActivityViewModel : AppCompatActivity() {
+class ViewModelActivity : AppCompatActivity() {
     private lateinit var tvCount:TextView
     private lateinit var btnCount:Button
     private lateinit var viewModel: ActivityViewModel
