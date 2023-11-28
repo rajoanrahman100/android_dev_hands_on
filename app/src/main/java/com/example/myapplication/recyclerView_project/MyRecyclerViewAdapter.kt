@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.recyclerView_project.dataClass.People
+import com.example.myapplication.roomDB_crud_project.db.Student
 
 class MyRecyclerViewAdapter(
     private var listOfItem: List<People>,
