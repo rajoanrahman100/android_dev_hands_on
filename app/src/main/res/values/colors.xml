@@ -18,4 +18,8 @@
     <color name="normal">#4CAF50</color>
     <color name="over_weight">#78374D</color>
     <color name="obese">#872721</color>
+
+    <color name="grey1">#575656</color>
+    <color name="grey2">#4A4141</color>
+
 </resources>
