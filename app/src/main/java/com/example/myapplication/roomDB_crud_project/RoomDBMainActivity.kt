@@ -1,14 +1,13 @@
 package com.example.myapplication.roomDB_crud_project
 
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
+import com.example.myapplication.databinding.ActivityRoomDbmainBinding
 import com.example.myapplication.roomDB_crud_project.adaptarClass.StudentRecyclerViewAdapter
 import com.example.myapplication.roomDB_crud_project.db.Student
 import com.example.myapplication.roomDB_crud_project.db.StudentDatabase
@@ -17,66 +16,67 @@ import com.example.myapplication.roomDB_crud_project.viewModel.StudentViewModelF
 
 class RoomDBMainActivity : AppCompatActivity() {
 
-    private lateinit var etStudentName: EditText
-    private lateinit var etStudentEmail: EditText
-    private lateinit var saveButton: Button
-    private lateinit var clearButton: Button
-    private lateinit var studentRecyclerView: RecyclerView
     private lateinit var studentRecyclerViewAdapter: StudentRecyclerViewAdapter
     private lateinit var viewModel: StudentViewModel
 
     private lateinit var selectedStudent: Student
     private var isListItemClicked = false
+    private lateinit var binding: ActivityRoomDbmainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_room_dbmain)
+        //setContentView(R.layout.activity_room_dbmain)
 
-        etStudentName = findViewById(R.id.editStudentName)
-        etStudentEmail = findViewById(R.id.editStudentEmail)
-        saveButton = findViewById(R.id.btnSave)
-        clearButton = findViewById(R.id.btnClear)
-        studentRecyclerView = findViewById(R.id.rvStudent)
+        binding = ActivityRoomDbmainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+
 
         val dao = StudentDatabase.getInstance(applicationContext).studentDao()
         val factory = StudentViewModelFactory(dao)
         viewModel = ViewModelProvider(this, factory)[StudentViewModel::class.java]
 
-        saveButton.setOnClickListener {
+        binding.apply {
+            btnSave.setOnClickListener {
 
-            if (isListItemClicked) {
-                updateStudentData()
-                clearStudentData()
-            } else {
-                saveStudentData()
-                clearStudentData()
+                if (isListItemClicked) {
+                    updateStudentData()
+                    clearStudentData()
+                } else {
+                    saveStudentData()
+                    clearStudentData()
+                }
+
+
             }
 
+            btnClear.setOnClickListener {
 
-        }
+                if (isListItemClicked) {
+                    deleteStudentData()
+                    clearStudentData()
+                } else {
+                    clearStudentData()
+                }
 
-        clearButton.setOnClickListener {
 
-            if (isListItemClicked) {
-                deleteStudentData()
-                clearStudentData()
-            } else {
-                clearStudentData()
             }
-
-
         }
+
+
 
         initRecyclerAdapter()
 
     }
 
     private fun saveStudentData() {
-        val name = etStudentName.text.toString()
-        val email = etStudentEmail.text.toString()
+        binding.apply {
+            val name = editStudentName.text.toString()
+            val email = editStudentEmail.text.toString()
 
-        val student = Student(0, name, email)
-        viewModel.insertStudent(student)
+            val student = Student(0, name, email)
+            viewModel.insertStudent(student)
+        }
 
         ///TODO: Another way to do insert operation
         /*viewModel.insertStudent(
@@ -90,40 +90,46 @@ class RoomDBMainActivity : AppCompatActivity() {
     }
 
     private fun updateStudentData() {
-        val name = etStudentName.text.toString()
-        val email = etStudentEmail.text.toString()
+        binding.apply {
+            val name = editStudentName.text.toString()
+            val email = editStudentEmail.text.toString()
 
-        val student = Student(selectedStudent.id, name, email)
-        viewModel.updateStudent(student)
+            val student = Student(selectedStudent.id, name, email)
+            viewModel.updateStudent(student)
 
-        saveButton.text = "Save"
-        clearButton.text = "Clear"
-        isListItemClicked = false
+            btnSave.text = "Save"
+            btnClear.text = "Clear"
+            isListItemClicked = false
+        }
     }
 
     private fun deleteStudentData() {
-        val name = etStudentName.text.toString()
-        val email = etStudentEmail.text.toString()
+        binding.apply {
+            val name = editStudentName.text.toString()
+            val email = editStudentEmail.text.toString()
 
-        val student = Student(selectedStudent.id, name, email)
-        viewModel.deleteStudent(student)
+            val student = Student(selectedStudent.id, name, email)
+            viewModel.deleteStudent(student)
 
-        saveButton.text = "Save"
-        clearButton.text = "Clear"
-        isListItemClicked = false
+            btnSave.text = "Save"
+            btnClear.text = "Clear"
+            isListItemClicked = false
+        }
     }
 
     private fun clearStudentData() {
-        etStudentName.setText("")
-        etStudentEmail.setText("")
+        binding.apply {
+            editStudentName.setText("")
+            editStudentEmail.setText("")
+        }
     }
 
     private fun initRecyclerAdapter() {
-        studentRecyclerView.layoutManager = LinearLayoutManager(this)
+        binding.rvStudent.layoutManager = LinearLayoutManager(this)
         studentRecyclerViewAdapter = StudentRecyclerViewAdapter { selectStudent: Student ->
             listItemClicked(selectStudent)
         }
-        studentRecyclerView.adapter = studentRecyclerViewAdapter
+        binding.rvStudent.adapter = studentRecyclerViewAdapter
 
         displayStudentList()
     }
@@ -137,12 +143,15 @@ class RoomDBMainActivity : AppCompatActivity() {
 
     private fun listItemClicked(student: Student) {
         Toast.makeText(this, "Student name is ${student.name}", Toast.LENGTH_SHORT).show()
-        selectedStudent = student
-        saveButton.text = "Update"
-        clearButton.text = "Delete"
-        isListItemClicked = true
-        etStudentName.setText(selectedStudent.name)
-        etStudentEmail.setText(selectedStudent.email)
+        binding.apply {
+
+            selectedStudent = student
+            btnSave.text = "Update"
+            btnClear.text = "Delete"
+            isListItemClicked = true
+            editStudentName.setText(selectedStudent.name)
+            editStudentEmail.setText(selectedStudent.email)
+        }
 
     }
 }

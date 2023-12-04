@@ -1,20 +1,22 @@
 package com.example.myapplication.roomDB_crud_project.adaptarClass
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.R
+import com.example.myapplication.databinding.StudentDbListItemBinding
 import com.example.myapplication.roomDB_crud_project.db.Student
 
-class StudentRecyclerViewAdapter(private val clickListener:(Student)->Unit) : RecyclerView.Adapter<StudentViewHolder>() {
+class StudentRecyclerViewAdapter(private val clickListener: (Student) -> Unit) :
+    RecyclerView.Adapter<StudentViewHolder>() {
 
     private var listOfStudent = ArrayList<Student>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudentViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val listItem = layoutInflater.inflate(R.layout.student_db_list_item, parent, false)
-        return StudentViewHolder(listItem)
+
+
+        val binding =
+            StudentDbListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
+        return StudentViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -23,7 +25,7 @@ class StudentRecyclerViewAdapter(private val clickListener:(Student)->Unit) : Re
 
     override fun onBindViewHolder(holder: StudentViewHolder, position: Int) {
 
-        holder.bind(listOfStudent[position],clickListener)
+        holder.bind(listOfStudent[position], clickListener)
     }
 
 
@@ -34,14 +36,14 @@ class StudentRecyclerViewAdapter(private val clickListener:(Student)->Unit) : Re
 
 }
 
-class StudentViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+class StudentViewHolder(private val binding: StudentDbListItemBinding) :
+    RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(student: Student,clickListener:(Student)->Unit) {
-        val nameTextView = view.findViewById<TextView>(R.id.studentTvName)
-        val emailTextView = view.findViewById<TextView>(R.id.studentTvEmail)
-        nameTextView.text = student.name
-        emailTextView.text = student.email
-        view.setOnClickListener {
+    fun bind(student: Student, clickListener: (Student) -> Unit) {
+
+        binding.studentTvName.text = student.name
+        binding.studentTvEmail.text = student.email
+        binding.root.setOnClickListener {
             clickListener(student)
         }
     }
