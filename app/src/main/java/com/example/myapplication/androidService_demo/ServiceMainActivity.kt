@@ -13,6 +13,7 @@ import com.example.myapplication.databinding.ActivityServiceMainBinding
 class ServiceMainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityServiceMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_service_main)

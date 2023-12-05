@@ -128,6 +128,7 @@
         </activity>
 
         <service android:name=".androidService_demo.MyBackgroundService" />
+        <service android:name=".androidService_stopWatch_demo.StopWatchService"/>
     </application>
 
 </manifest>
