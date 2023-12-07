@@ -1,9 +1,8 @@
-# android_dev_hands_on
 # Android Development for Beginners
 
 This comprehensive, up-to-date Android Development for beginners course covers everything you need to start android development with Android Studio.
 
-## Course Overview
+## Project Overview
 
 - 🔄 **Android Activity Lifecycle:** Understand the lifecycle stages of an Android activity.
 - 🎨 **Shared Preferences with UI Design, Audio & Video:** Utilize shared preferences for data storage and integrate UI elements like audio and video.
