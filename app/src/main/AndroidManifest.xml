@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
+
         <activity
             android:name=".androidService_stopWatch_demo.StopWatchMainActivity"
             android:exported="true">
@@ -128,7 +129,7 @@
         </activity>
 
         <service android:name=".androidService_demo.MyBackgroundService" />
-        <service android:name=".androidService_stopWatch_demo.StopWatchService"/>
+        <service android:name=".androidService_stopWatch_demo.StopWatchService" />
     </application>
 
 </manifest>
